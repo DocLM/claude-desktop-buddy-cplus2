@@ -1,5 +1,18 @@
 # claude-desktop-buddy
 
+> **Fork note** — this repo is a port of
+> [anthropics/claude-desktop-buddy](https://github.com/anthropics/claude-desktop-buddy)
+> to the **M5StickC Plus2**. Main changes vs. upstream:
+> - Swapped the deprecated `m5stack/M5StickCPlus` (AXP192-specific) library
+>   for `m5stack/M5Unified` + `m5stack/M5GFX`, and migrated every display,
+>   power, RTC, IMU, button, and speaker call to the new API.
+> - 8bpp RGB332 canvas and a shrunk `M5.Speaker` I2S DMA buffer so the
+>   firmware fits Plus2's tighter heap once M5Unified is loaded (without
+>   these, BLE pairing starves and I2S alloc thrashes on every beep).
+> - PlatformIO env is `[env:m5stickc-plus2]` with `board = m5stick-c` +
+>   `board_build.variant = m5stack_stickc_plus2` — PlatformIO has no
+>   Plus2-specific board ID yet, but Arduino-ESP32 ships the variant.
+
 Claude for macOS and Windows can connect Claude Cowork and Claude Code to
 maker devices over BLE, so developers and makers can build hardware that
 displays permission prompts, recent messages, and other interactions. We've
